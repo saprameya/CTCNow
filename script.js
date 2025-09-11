@@ -59,7 +59,6 @@ function wpClue() {
 function twoClue() {
   console.log(`existent: ${Array.from(existent)} `); /////////////////////////////////////////////
   console.log(`non existent: ${Array.from(nonExistent)}`); /////////////////////////////////////////////
-  
 
   const tempSet = new Set();
 
@@ -73,6 +72,8 @@ function twoClue() {
     while (nonExistent.has(num)) num = Math.floor(Math.random() * 10);
     existent.add(num);
     tempSet.add(num);
+    console.log(`added ${num} to existent`); /////////////////////////
+    console.log(`tempSet: ${Array.from(tempSet)} `); /////////////////////////
   }
 
   //Add one number that will not exist in the answer
@@ -86,27 +87,26 @@ function twoClue() {
   }
   nonExistent.add(num);
   tempSet.add(num);
+  console.log(`added ${num} to non existent`); /////////////////////////////////////////////
+  console.log(`tempSet: ${Array.from(tempSet)} `); /////////////////////////
 
   const temp = Array.from(tempSet);
   if (temp.includes(wpNum)) {
     notWpNum1 = wpNum;
     while (temp.indexOf[wpNum] == wpIndex) shuffleArray(temp);
-    
-  } else{
-    for (let i = 0;  i < temp.length; i++) {
-      if(!nonExistent.has(temp[i])){
-        if(notWpNum1 == -1){
+  } else {
+    for (let i = 0; i < temp.length; i++) {
+      if (!nonExistent.has(temp[i])) {
+        if (notWpNum1 == -1) {
           notWpNum1 = temp[notWpIndex1];
-        }else if (notWpNum2 == -1){
-           notWpNum2 = temp[notWpIndex2];
+        } else if (notWpNum2 == -1) {
+          notWpNum2 = temp[notWpIndex2];
         }
       }
     }
   }
 
-  
-
-  console.log(`temp: ${temp}`);///////////////////////////
+  console.log(`temp: ${temp}`); ///////////////////////////
   console.log(`wpNum: ${wpNum}`); ////////////////////////
   console.log(`notWpNum1: ${notWpNum1}`); //////////////////////
   console.log(`notWpNum2: ${notWpNum2}`); /////////////////////////
