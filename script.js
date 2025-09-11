@@ -66,20 +66,20 @@ function twoClue() {
   let num = -1;
   for (let i = 0; i < 2; i++) {
     num = Math.floor(Math.random() * 10);
-    console.log(i); /////////////////////////
-    console.log(`num: ${num}`); ////////////////////////////////////
+    // console.log(i); /////////////////////////
+    // console.log(`num: ${num}`); ////////////////////////////////////
 
     while (nonExistent.has(num)) num = Math.floor(Math.random() * 10);
     existent.add(num);
     tempSet.add(num);
-    console.log(`added ${num} to existent`); /////////////////////////
-    console.log(`tempSet: ${Array.from(tempSet)} `); /////////////////////////
+    // console.log(`added ${num} to existent`); /////////////////////////
+    // console.log(`tempSet: ${Array.from(tempSet)} `); /////////////////////////
   }
 
   //Add one number that will not exist in the answer
   num = Math.floor(Math.random() * 10);
-  console.log(`num: ${num}`); ////////////////////////////////////
-  console.log(`existent.has(num): ${existent.has(num)}`); ////////////////////////////
+  // console.log(`num: ${num}`); ////////////////////////////////////
+  // console.log(`existent.has(num): ${existent.has(num)}`); ////////////////////////////
   if (existent.has(num)) {
     while (existent.has(num)) {
       num = Math.floor(Math.random() * 10);
@@ -87,15 +87,16 @@ function twoClue() {
   }
   nonExistent.add(num);
   tempSet.add(num);
-  console.log(`added ${num} to non existent`); /////////////////////////////////////////////
-  console.log(`tempSet: ${Array.from(tempSet)} `); /////////////////////////
+  // console.log(`added ${num} to non existent`); /////////////////////////////////////////////
+  // console.log(`tempSet: ${Array.from(tempSet)} `); /////////////////////////
 
   const temp = Array.from(tempSet);
   if (temp.includes(wpNum)) {
     notWpNum1 = wpNum;
     while (temp.indexOf[wpNum] == wpIndex) shuffleArray(temp);
-  } else {
+  } 
     for (let i = 0; i < temp.length; i++) {
+      console.log(!nonExistent.has(temp[i]));////////////////////////////////////
       if (!nonExistent.has(temp[i])) {
         if (notWpNum1 == -1) {
           notWpNum1 = temp[notWpIndex1];
@@ -104,7 +105,7 @@ function twoClue() {
         }
       }
     }
-  }
+  
 
   console.log(`temp: ${temp}`); ///////////////////////////
   console.log(`wpNum: ${wpNum}`); ////////////////////////
