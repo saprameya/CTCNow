@@ -1,0 +1,60 @@
+function twoClue() {
+  let temp = Array.from(setClue());
+  let correctCount = 0;
+  let notCorrectCount = 0;
+  for (const num of temp) {
+    if (existent.has(num)) correctCount++;
+    if (nonExistent.has(num)) notCorrectCount++;
+  }
+  while (notCorrectCount > 1) {
+    temp = new Array();
+    temp = Array.from(setClue());
+    correctCount = 0;
+    notCorrectCount = 0;
+    for (const num of temp) {
+      if (existent.has(num)) correctCount++;
+      if (nonExistent.has(num)) notCorrectCount++;
+    }
+  }
+
+  if (temp.includes(wpNum)) {
+    while (temp.indexOf(wpNum) == wpIndex) {
+      shuffleArray(temp);
+    }
+    notWpNum1 = wpNum;
+    // notWpNum2 = temp[notWpIndex2];
+  } else {
+    for (const num of temp) {
+      if (!nonExistent.has(num)) {
+        if (notWpNum1 == -1) {
+          notWpNum1 = num;
+        } else if (notWpNum2 == -1){
+          notWpNum2 = num;
+        }
+      }
+
+      if (num !== wpNum || num !== notWpIndex2 || num !== notWpNum2) {
+        nonExistent.add(num);
+        console.log(`added ${num} to non existent`); /////////////////////////////////////////////
+      } else {
+        existent.add(num);
+        console.log(`added ${num} to existent`); /////////////////////////////////////////////
+      }
+    }
+  }
+  // notWpNum1 = temp[notWpIndex1];
+  // notWpNum2 = temp[notWpIndex2];
+
+  // existent.add(notWpNum1);
+  // existent.add(notWpNum2);
+
+  for (const num of temp) {
+    if (!existent.has(num)) nonExistent.add(num);
+    twoCorrect.push(num);
+  }
+
+  console.log(`wpNum: ${wpNum}
+    notWpNum1: ${notWpNum1}
+    notWpNum2: ${notWpNum2}
+    `); /////////////////////////////////////////////////////////////////
+}

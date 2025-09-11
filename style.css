@@ -1,0 +1,120 @@
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+  --primary-color: rgb(145, 57, 145);
+  --font-color: rgba(255, 255, 0);
+
+  background-color: var(--primary-color);
+  color: var(--font-color);
+}
+
+header {
+    width: 100vw;
+  padding-right: 30%; background-color: var(--font-color);
+}
+h1 {
+    /* padding-right: 30%; */
+  text-align: center;
+  font-family: Georgia, 'Times New Roman', Times, serif;
+  width: 70vw;
+  color: var(--primary-color);
+ 
+  
+}
+main{
+    display: flex;
+    flex-wrap: wrap;
+}
+.puzzle {
+  display: flex;
+  width: 70%;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: center;
+  min-height: 100vh;
+}
+.instructions{
+    width: 30%;
+   
+    margin-top: 10%;
+}
+
+.clues{
+    min-width: 60%;
+    min-height: 50vh;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 3rem;
+    margin-inline: auto;
+    font-size: 1.5rem;
+}
+
+.clue{
+    margin: auto;
+}
+
+.clue p{
+    max-width: fit-content;
+    margin-inline: auto;
+}
+
+.answer{
+    display: flex;
+    flex-direction: column;
+    min-height: 30vh;
+    margin: auto;
+   
+}
+
+.ans-box{
+    font-size: 1.5rem;
+    text-align: center;
+}
+
+.answer-wrapper{
+    display: flex;
+    gap: 1rem;
+}
+
+.answer-wrapper input{
+    width: 3rem;
+    aspect-ratio: 1;
+    border-radius: 0.5rem;
+}
+
+.button-wrapper{
+    padding-block: 1rem;
+    display: grid;
+    gap: 0.5rem;
+    grid-template-columns: repeat(3, 1fr);
+    margin-inline: auto;
+}
+
+.button{
+    width: 2.5rem;
+    aspect-ratio: 1;
+    border-radius: 0.5rem;
+    font-size: 1.2rem;
+}
+
+.button-wrapper > button:nth-child(10){
+    grid-area: 4/2;
+}
+
+#submit{
+   width: 5rem;
+    padding: 0.5rem;
+    aspect-ratio: 5/1;
+    margin: auto;
+}
+
+.placeholder{
+    background-color: var(--font-color);
+    font-size: 2em;
+    line-height: 1.14;
+}
