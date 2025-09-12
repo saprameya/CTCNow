@@ -1,4 +1,5 @@
 "use strict";
+
 //declare clue arrays
 const twoCorrect = new Array();
 const oneCorrect = new Array();
@@ -14,9 +15,23 @@ function shuffleArray(array) {
   return array;
 }
 
+function rearrange(array, num, index) {
+  if (index == wpIndex) {
+    while (array.indexOf(num) !== wpIndex) shuffleArray(array);
+    return array;
+  }
+  if (index === notWpIndex1) {
+    while (array.indexOf(num) === notWpIndex1) shuffleArray(array);
+    return array;
+  }
+  if (index === notWpIndex2) {
+    while (array.indexOf(num) === notWpIndex2) shuffleArray(array);
+    return array;
+  }
+}
+
 //set named indexes
 const indexes = shuffleArray([0, 1, 2]);
-
 let wpIndex = indexes[0];
 let notWpIndex1 = indexes[1];
 let notWpIndex2 = indexes[2];
@@ -45,146 +60,107 @@ function setClue() {
 }
 
 function wpClue() {
-  const temp = Array.from(setClue());
-  wpNum = temp[wpIndex];
-  for (const num of temp) {
-    num !== wpNum ? nonExistent.add(num) : existent.add(num);
+  const tempSet = new Set();
+  let num = Math.floor(Math.random() * 10);
+  while (nonExistent.has(num)) num = Math.floor(Math.random() * 10);
+  tempSet.add(num);
+  existent.add(num);
+  wpNum = num;
+
+  while (tempSet.size < 3) {
+    num = Math.floor(Math.random() * 10);
+    while (existent.has(num)) num = Math.floor(Math.random() * 10);
+    tempSet.add(num);
+    nonExistent.add(num);
   }
+
+  let temp = Array.from(tempSet);
+
+  temp = rearrange(temp, wpNum, wpIndex);
 
   for (const num of temp) {
     wellPlaced.push(num);
   }
+
+  if (existent.size < 3) {
+    wpNum == notWpNum1 ? (notWpNum1 = -1) : (notWpNum2 = -1);
+  }
 }
 
 function twoClue() {
-  console.log(`existent: ${Array.from(existent)} `); /////////////////////////////////////////////
-  console.log(`non existent: ${Array.from(nonExistent)}`); /////////////////////////////////////////////
+  let temp = Array.from(setClue());
+  notWpNum1 = temp[notWpIndex1];
+  existent.add(notWpNum1);
+  notWpNum2 = temp[notWpIndex2];
+  existent.add(notWpNum2);
+  nonExistent.add(temp[wpIndex]);
 
-  const tempSet = new Set();
-
-  //Add two numbers that will exist in the answer
-  let num = -1;
-  for (let i = 0; i < 2; i++) {
-    num = Math.floor(Math.random() * 10);
-    // console.log(i); /////////////////////////
-    // console.log(`num: ${num}`); ////////////////////////////////////
-
-    while (nonExistent.has(num)) num = Math.floor(Math.random() * 10);
-    existent.add(num);
-    tempSet.add(num);
-    // console.log(`added ${num} to existent`); /////////////////////////
-    // console.log(`tempSet: ${Array.from(tempSet)} `); /////////////////////////
+  for (const num of temp) {
+    twoCorrect.push(num);
   }
-
-  //Add one number that will not exist in the answer
-  num = Math.floor(Math.random() * 10);
-  // console.log(`num: ${num}`); ////////////////////////////////////
-  // console.log(`existent.has(num): ${existent.has(num)}`); ////////////////////////////
-  if (existent.has(num)) {
-    while (existent.has(num)) {
-      num = Math.floor(Math.random() * 10);
-    }
-  }
-  nonExistent.add(num);
-  tempSet.add(num);
-  // console.log(`added ${num} to non existent`); /////////////////////////////////////////////
-  // console.log(`tempSet: ${Array.from(tempSet)} `); /////////////////////////
-
-  const temp = Array.from(tempSet);
-  if (temp.includes(wpNum)) {
-    notWpNum1 = wpNum;
-    while (temp.indexOf[wpNum] == wpIndex) shuffleArray(temp);
-  } 
-    for (let i = 0; i < temp.length; i++) {
-      console.log(!nonExistent.has(temp[i]));////////////////////////////////////
-      if (!nonExistent.has(temp[i])) {
-        if (notWpNum1 == -1) {
-          notWpNum1 = temp[notWpIndex1];
-        } else if (notWpNum2 == -1) {
-          notWpNum2 = temp[notWpIndex2];
-        }
-      }
-    }
-  
-
-  console.log(`temp: ${temp}`); ///////////////////////////
-  console.log(`wpNum: ${wpNum}`); ////////////////////////
-  console.log(`notWpNum1: ${notWpNum1}`); //////////////////////
-  console.log(`notWpNum2: ${notWpNum2}`); /////////////////////////
 }
 
 function oneClue() {
-  let correctCount = 0;
-  let notCorrectCount = 0;
-  let temp;
+  const tempSet = new Set();
+  let num = -1;
+  let tempNum = -1;
 
-  temp = new Array();
-  temp = Array.from(setClue());
-  correctCount = 0;
-  notCorrectCount = 0;
-  for (const num of temp) {
-    if (existent.has(num)) correctCount++;
-    if (nonExistent.has(num)) notCorrectCount++;
-  }
-  while (correctCount > 1 || notCorrectCount > 2) {
-    temp = new Array();
-    temp = Array.from(setClue());
-    correctCount = 0;
-    notCorrectCount = 0;
-    for (const num of temp) {
-      if (existent.has(num)) correctCount++;
-      if (nonExistent.has(num)) notCorrectCount++;
-    }
+  if (existent.size < 3) {
+    num = Math.floor(Math.random() * 10);
+    while (nonExistent.has(num)) num = Math.floor(Math.random() * 10);
+    tempSet.add(num);
+    existent.add(num);
+  } else {
+    let index = Math.floor(Math.random() * 3);
+    num = Array.from(existent)[index];
+    tempSet.add(num);
   }
 
-  if (correctCount == 0) {
-    if (existent.size == 3) {
-      temp[Math.floor(Math.random() * 3)] = Array.from(existent)[Math.random() * 3];
-    } else {
-      do {
-        temp[notWpIndex1] = Math.floor(Math.random() * 10);
-      } while (!nonExistent.has(temp[notWpIndex1]));
-      notWpNum2 = temp[notWpIndex1];
-      existent.add(temp[notWpIndex1]);
-    }
+  if (notWpNum1 == -1) {
+    notWpNum1 = num;
+  } else if (notWpNum2 == -1) {
+    notWpNum2 = num;
   }
 
+  while (tempSet.size < 3) {
+    num = Math.floor(Math.random() * 10);
+    while (existent.has(num)) num = Math.floor(Math.random() * 10);
+    tempSet.add(num);
+    nonExistent.add(num);
+  }
+
+  let temp = Array.from(tempSet);
   if (temp.includes(wpNum)) {
-    while (temp.indexOf(wpNum) == wpIndex) {
-      shuffleArray(temp);
-    }
+    while (temp.indexOf(wpNum) == wpIndex) shuffleArray(temp);
   }
   if (temp.includes(notWpNum1)) {
-    while (temp.indexOf(notWpNum1) == notWpNum2) {
-      shuffleArray(temp);
-    }
+    while (temp.indexOf(notWpNum1) == notWpIndex1) shuffleArray(temp);
   }
   if (temp.includes(notWpNum2)) {
-    while (temp.indexOf(notWpNum2) == notWpNum1) {
-      shuffleArray(temp);
-    }
+    while (temp.indexOf(notWpNum2) == notWpIndex2) shuffleArray(temp);
   }
+
   for (const num of temp) {
     oneCorrect.push(num);
   }
+
+  console.log(`wellPlaced: ${wellPlaced}`);
+  console.log(`twoCorrect: ${twoCorrect}`);
+  console.log(`oneCorrect: ${oneCorrect}`);
+  console.log(`wpNum: ${wpNum}`);
+  console.log(`notWpNum1: ${notWpNum1}`);
+  console.log(`notWpNum2: ${notWpNum2}`);
+  console.log(`existent: ${Array.from(existent)}`);
+  console.log(`nonExistent: ${Array.from(nonExistent)}`);
 }
 
 $().ready(() => {
   //set clues
+  twoClue();
 
   wpClue();
-  twoClue();
-  // oneClue();
-  console.log(`wellPlaced:`);
-  console.log(wellPlaced); ////////////////////////////
-  console.log(`twoCorrect:`);
-  console.log(twoCorrect); ////////////////////////////
-  console.log(`oneCorrect:`);
-  console.log(oneCorrect); ////////////////////////////
-  console.log(`existent:`);
-  console.log(existent); /////////////////////////////////
-  console.log(`nonExistent:`);
-  console.log(nonExistent); ///////////////////////////////
+  oneClue();
+
   // set currentAnsBox if user clicks on an input box
   $(".ans-box").on("click", function (e) {
     currentAnsBox = $(this);
@@ -212,8 +188,11 @@ $().ready(() => {
     if (answerSet.length !== answer.length) {
       alert("Duplicate numbers not allowed");
     }
+    if (answerSet.includes("")) {
+      alert("Please fill all 3 boxes");
+    }
 
-    console.log(new Set(answer).size); ///////////////////////////////////////////////////////////////
+    console.log(answer); ///////////////////////////////////////////////////////////////
     e.preventDefault();
   });
 });
