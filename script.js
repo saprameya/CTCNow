@@ -15,17 +15,12 @@ function shuffleArray(array) {
   return array;
 }
 
-function rearrange(array, num, index) {
-  if (index == wpIndex) {
-    while (array.indexOf(num) !== wpIndex) shuffleArray(array);
+function rearrange(array, num, index, isEqual) {
+  if (isEqual == true) {
+    while (array.indexOf(num) !== index) shuffleArray(array);
     return array;
-  }
-  if (index === notWpIndex1) {
-    while (array.indexOf(num) === notWpIndex1) shuffleArray(array);
-    return array;
-  }
-  if (index === notWpIndex2) {
-    while (array.indexOf(num) === notWpIndex2) shuffleArray(array);
+  } else {
+    while (array.indexOf(num) === index) shuffleArray(array);
     return array;
   }
 }
@@ -49,16 +44,29 @@ const nonExistent = new Set();
 
 let currentAnsBox = $("#ans1"); //to recieve user set value
 
-function setClue() {
-  const clueSet = new Set();
-  while (clueSet.size < 3) {
+let hasWon = true;
+
+//Generate clue with two correct but wrongly placed numbers
+function twoClue() {
+  const tempSet = new Set();
+  while (tempSet.size < 3) {
     const num = Math.floor(Math.random() * 10);
-    clueSet.add(num);
+    tempSet.add(num);
   }
 
-  return clueSet;
+  let temp = Array.from(tempSet);
+  notWpNum1 = temp[notWpIndex1];
+  existent.add(notWpNum1);
+  notWpNum2 = temp[notWpIndex2];
+  existent.add(notWpNum2);
+  nonExistent.add(temp[wpIndex]);
+
+  for (const num of temp) {
+    twoCorrect.push(num);
+  }
 }
 
+//Generate clue with one correct and well placed number
 function wpClue() {
   const tempSet = new Set();
   let num = Math.floor(Math.random() * 10);
@@ -76,7 +84,7 @@ function wpClue() {
 
   let temp = Array.from(tempSet);
 
-  temp = rearrange(temp, wpNum, wpIndex);
+  temp = rearrange(temp, wpNum, wpIndex, true);
 
   for (const num of temp) {
     wellPlaced.push(num);
@@ -87,19 +95,7 @@ function wpClue() {
   }
 }
 
-function twoClue() {
-  let temp = Array.from(setClue());
-  notWpNum1 = temp[notWpIndex1];
-  existent.add(notWpNum1);
-  notWpNum2 = temp[notWpIndex2];
-  existent.add(notWpNum2);
-  nonExistent.add(temp[wpIndex]);
-
-  for (const num of temp) {
-    twoCorrect.push(num);
-  }
-}
-
+//Generate clue with one correct but wrongly placed number
 function oneClue() {
   const tempSet = new Set();
   let num = -1;
@@ -131,35 +127,97 @@ function oneClue() {
 
   let temp = Array.from(tempSet);
   if (temp.includes(wpNum)) {
-    while (temp.indexOf(wpNum) == wpIndex) shuffleArray(temp);
+    rearrange(temp, wpNum, wpIndex, false);
   }
   if (temp.includes(notWpNum1)) {
-    while (temp.indexOf(notWpNum1) == notWpIndex1) shuffleArray(temp);
+    rearrange(temp, notWpNum1, notWpIndex1, true);
   }
   if (temp.includes(notWpNum2)) {
-    while (temp.indexOf(notWpNum2) == notWpIndex2) shuffleArray(temp);
+    rearrange(temp, notWpNum2, notWpIndex2, true);
   }
 
   for (const num of temp) {
     oneCorrect.push(num);
   }
+}
 
-  console.log(`wellPlaced: ${wellPlaced}`);
-  console.log(`twoCorrect: ${twoCorrect}`);
-  console.log(`oneCorrect: ${oneCorrect}`);
-  console.log(`wpNum: ${wpNum}`);
-  console.log(`notWpNum1: ${notWpNum1}`);
-  console.log(`notWpNum2: ${notWpNum2}`);
-  console.log(`existent: ${Array.from(existent)}`);
-  console.log(`nonExistent: ${Array.from(nonExistent)}`);
+//Generate clue with all incorrect numbers
+function noneCorrect() {
+  let tempSet = new Set();
+  while (tempSet.size < 3) {
+    let num = Math.floor(Math.random() * 10);
+    while (existent.has(num)) num = Math.floor(Math.random() * 10);
+    tempSet.add(num);
+    nonExistent.add(num);
+  }
+  for (const num of tempSet) {
+    noCorrect.push(num);
+  }
+}
+
+function checkAnswer(answer) {
+  const problems = new Array();
+  let problem = ``;
+  for (const num of answer) {
+    console.log(nonExistent.has(num));
+    if (noCorrect.includes(num)) {
+      hasWon = false;
+      problem += `\n${num} cannot be part of the answer.`;
+    } else if (num == wpNum && answer.indexOf(num) !== wpIndex) {
+      hasWon = false;
+      problem += `\n${num} cannot appear in the ${
+        answer.indexOf(num) + 1
+      } position. `;
+    } else if (num == notWpNum1 && answer.indexOf(num) === notWpIndex1) {
+      hasWon = false;
+      problem += `\n${num} cannot appear in the ${
+        answer.indexOf(num) + 1
+      } position. `;
+    } else if (num == notWpNum2 && answer.indexOf(num) === notWpIndex2) {
+      hasWon = false;
+      problem += `\n${num} cannot appear in the ${
+        answer.indexOf(num) + 1
+      } position. `;
+    }
+    console.log(hasWon);
+  }
+
+  hasWon ? alert("You win!") : alert(`You lose! \n ${problem}`);
 }
 
 $().ready(() => {
   //set clues
   twoClue();
-
   wpClue();
   oneClue();
+  noneCorrect();
+
+  //shuffle order of clues
+  const clueArray = Array.from($(".clue"));
+  shuffleArray(clueArray);
+  console.log(clueArray);
+
+  $(".clues").text("");
+  for (const element of clueArray) {
+    $(".clues").append(element);
+  }
+
+  $("#clue1").text(twoCorrect.join(""));
+  $("#clue2").text(wellPlaced.join(""));
+  $("#clue3").text(oneCorrect.join(""));
+  $("#clue4").text(noCorrect.join(""));
+
+  /////////////////////////////////////////////////////////////////////////////////
+  console.log(`wellPlaced: ${wellPlaced}`);
+  console.log(`twoCorrect: ${twoCorrect}`);
+  console.log(`oneCorrect: ${oneCorrect}`);
+  console.log(`noCorrect: ${noCorrect}`);
+  console.log(`wpNum: ${wpNum}`);
+  console.log(`notWpNum1: ${notWpNum1}`);
+  console.log(`notWpNum2: ${notWpNum2}`);
+  console.log(`existent: ${Array.from(existent)}`);
+  console.log(`nonExistent: ${Array.from(nonExistent)}`);
+  /////////////////////////////////////////////////////////////////////////////
 
   // set currentAnsBox if user clicks on an input box
   $(".ans-box").on("click", function (e) {
@@ -181,18 +239,17 @@ $().ready(() => {
   $("#submit").click((e) => {
     const answer = [];
     $(".ans-box").each(function () {
-      answer.push($(this).val());
+      answer.push(parseInt($(this).val()));
     });
 
     const answerSet = Array.from(new Set(answer));
     if (answerSet.length !== answer.length) {
       alert("Duplicate numbers not allowed");
-    }
-    if (answerSet.includes("")) {
+    } else if (answerSet.includes("")) {
       alert("Please fill all 3 boxes");
-    }
-
-    console.log(answer); ///////////////////////////////////////////////////////////////
+    } else {
+      checkAnswer(answer);
+    } ///////////////////////////////////////////////////////////////
     e.preventDefault();
   });
 });
