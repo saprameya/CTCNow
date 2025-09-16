@@ -45,6 +45,7 @@ const nonExistent = new Set();
 let currentAnsBox = $("#ans1"); //to recieve user set value
 
 let hasWon = new Array();
+const wrongVal = new Array();
 
 //Generate clue with two correct but wrongly placed numbers
 function twoClue() {
@@ -164,6 +165,7 @@ function checkNoneCorrect(answer) {
     if (noCorrect.includes(num)) {
       noneCorrProblems[0] = false;
       probString += `\n-${num} cannot be part of the answer.`;
+      wrongVal.push(num);
     }
   }
 
@@ -184,12 +186,15 @@ function checkWP(answer) {
     if (wellPlaced.includes(num)) {
       correctCount++;
 
-      if (answer.indexOf(num) !== wellPlaced.indexOf(num)) {
-        wpProblems[0] = false;
+      if (!wrongVal.includes(num)) {
+        if (answer.indexOf(num) !== wellPlaced.indexOf(num)) {
+          wpProblems[0] = false;
 
-        probString += `\n-${num} must appear in position ${
-          wellPlaced.indexOf(num) + 1
-        } in the answer`;
+          probString += `\n-${num} must appear in position ${
+            wellPlaced.indexOf(num) + 1
+          } in the answer`;
+          wrongVal.push(num);
+        }
       }
     }
   }
@@ -215,12 +220,14 @@ function checkTwoCorrect(answer) {
     if (twoCorrect.includes(num)) {
       correctCount++;
 
-      if (answer.indexOf(num) === twoCorrect.indexOf(num)) {
-        twoCorrProblems[0] = false;
+      if (!wrongVal.includes(num)) {
+        if (answer.indexOf(num) === twoCorrect.indexOf(num)) {
+          twoCorrProblems[0] = false;
 
-        probString += `\n-${num} must not appear in position ${
-          twoCorrect.indexOf(num) + 1
-        } in the answer`;
+          probString += `\n-${num} must not appear in position ${
+            twoCorrect.indexOf(num) + 1
+          } in the answer`;
+        }
       }
     }
   }
@@ -242,16 +249,18 @@ function checkOneCorrect(answer) {
   let probString = "";
 
   for (const num of answer) {
-    if (!oneCorrect.includes(num)) {
+    if (oneCorrect.includes(num)) {
       correctCount++;
-      if (oneCorrect.includes(num))
+      if (!wrongVal.includes(num)) {
         if (answer.indexOf(num) === oneCorrect.indexOf(num)) {
           oneCorrProblems[0] = false;
 
           probString += `\n-${num} must not appear in position ${
             oneCorrect.indexOf(num) + 1
           } in the answer`;
+          wrongVal.push(num);
         }
+      }
     }
   }
   if (correctCount !== 1) {
@@ -259,13 +268,14 @@ function checkOneCorrect(answer) {
 
     probString += `\n-Answer must contain exactly one number from this clue`;
   }
-  if (oneCorrProblems.includes(false)) oneCorrProblems[1] = heading + probString;
+  if (oneCorrProblems.includes(false))
+    oneCorrProblems[1] = heading + probString;
   return oneCorrProblems;
 }
 
 function checkAnswer(answer) {
   const problems = new Array();
-  let problem = ``;
+  let problem = `\n\nWhat went wrong:`;
   const noneCorrChecked = checkNoneCorrect(answer);
   const wpChecked = checkWP(answer);
   const twoCorrChecked = checkTwoCorrect(answer);
@@ -273,10 +283,12 @@ function checkAnswer(answer) {
   hasWon =
     noneCorrChecked.includes(false) ||
     wpChecked.includes(false) ||
-    twoCorrChecked.includes(false) || oneCorrChecked.includes(false)
+    twoCorrChecked.includes(false) ||
+    oneCorrChecked.includes(false)
       ? false
       : true;
-  problem += noneCorrChecked[1] + wpChecked[1] + twoCorrChecked[1] + oneCorrChecked[1];
+  problem +=
+    noneCorrChecked[1] + wpChecked[1] + twoCorrChecked[1] + oneCorrChecked[1];
   console.log(hasWon);
   console.log(problem);
   // hasWon = checkWP(answer)[0];
@@ -287,7 +299,9 @@ function checkAnswer(answer) {
 
   // hasWon = checkOneCorrect(answer)[0];
 
-  hasWon ? alert("You win!") : alert(`You lose!\nYour answer: ${answer.join("")} \n ${problem}`);
+  hasWon
+    ? alert("You win!")
+    : alert(`You lose!\nYour answer: ${answer.join("")} \n ${problem}`);
 }
 
 $().ready(() => {
