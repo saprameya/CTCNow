@@ -4,50 +4,70 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Crack the Code</title>
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="style.css" />
   </head>
   <body>
     <header><h1>Crack the Code</h1></header>
     <main>
-        <div class="puzzle">
-          
-          <section class="clues">
-              <div class="clue" ><p id="clue1">Clue 1 text</p> <p>Two numbers are correct but wrongly placed.</p></div>
-              <div class="clue" ><p id="clue2">Clue 2 text</p> <p>One number is correct and well placed.</p></div>
-              <div class="clue" ><p id="clue3">Clue 3 text</p> <p>One number is correct and <u><b>not</b></u> well placed.</p></div>
-              <div class="clue" ><p id="clue4">Clue 4 text</p> <p>Nothing is correct.</p></div>
-          </section>
-          <form class="answer">
-              <div class="answer-wrapper">
-                  <input type="text" id="ans1" class = "ans-box" >
-                  <input type="text" id="ans2" class = "ans-box">
-                  <input type="text" id="ans3" class = "ans-box">
-              </div>
-              <div class="button-wrapper">
-                <button class="button number-btn" value="1">1</button>
-                <button class="button number-btn" value="2">2</button>
-                <button class="button number-btn" value="3">3</button>
-                <button class="button number-btn" value="4">4</button>
-                <button class="button number-btn" value="5">5</button>
-                <button class="button number-btn" value="6">6</button>
-                <button class="button number-btn" value="7">7</button>
-                <button class="button number-btn" value="8">8</button>
-                <button class="button number-btn" value="9">9</button>
-                <button class="button number-btn" value="0">0</button>
-          
-              </div><button class="button" id="submit">Submit</button>
-          
-          </form>
-        </div>
-        <div class="instructions">
-          
-          <h3>Instructions</h3>
-          <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Culpa dignissimos at molestiae incidunt, praesentium adipisci accusantium aliquid quaerat facilis distinctio, quas temporibus esse soluta debitis tenetur quis? Sequi vitae non fuga ut nam qui aspernatur nesciunt vero, impedit quibusdam quae excepturi. Inventore eligendi, hic omnis doloribus natus esse magni veritatis.</p></div>
+      <div class="puzzle">
+        <section class="clues">
+          <div class="clue">
+            <p id="clue1">Clue 1 text</p>
+            <p>Two numbers are correct but wrongly placed.</p>
+          </div>
+          <div class="clue">
+            <p id="clue2">Clue 2 text</p>
+            <p>One number is correct and well placed.</p>
+          </div>
+          <div class="clue">
+            <p id="clue3">Clue 3 text</p>
+            <p>
+              One number is correct and <u><b>not</b></u> well placed.
+            </p>
+          </div>
+          <div class="clue">
+            <p id="clue4">Clue 4 text</p>
+            <p>Nothing is correct.</p>
+          </div>
+        </section>
+        <form class="answer">
+          <div class="answer-wrapper">
+            <input type="text" id="ans1" class="ans-box" />
+            <input type="text" id="ans2" class="ans-box" />
+            <input type="text" id="ans3" class="ans-box" />
+          </div>
+          <div class="button-wrapper">
+            <button class="button number-btn" value="1">1</button>
+            <button class="button number-btn" value="2">2</button>
+            <button class="button number-btn" value="3">3</button>
+            <button class="button number-btn" value="4">4</button>
+            <button class="button number-btn" value="5">5</button>
+            <button class="button number-btn" value="6">6</button>
+            <button class="button number-btn" value="7">7</button>
+            <button class="button number-btn" value="8">8</button>
+            <button class="button number-btn" value="9">9</button>
+            <button class="button number-btn" value="0">0</button>
+          </div>
+          <button class="button" id="submit">Submit</button>
+        </form>
+      </div>
+      <div class="instructions">
+        <h3>Instructions</h3>
+
+        <ul>
+          <li>You will be given four clues to guess a three digit code.</li>
+          <li>Digits will not be repeated in the code.</li>
+          <li>There may be multiple correct solutions.</li>
+          <li>You can click on a box to change the digit you want to enter.</li>
+        </ul>
+      </div>
     </main>
 
-
- 
-    <script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
+    <script
+      src="https://code.jquery.com/jquery-3.7.1.min.js"
+      integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo="
+      crossorigin="anonymous"
+    ></script>
     <script src="script.js"></script>
   </body>
 </html>

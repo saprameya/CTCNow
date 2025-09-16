@@ -14,21 +14,21 @@ body {
 }
 
 header {
-    width: 100vw;
-  padding-right: 30%; background-color: var(--font-color);
+  width: 100vw;
+  padding-right: 30%;
+  background-color: var(--font-color);
 }
 h1 {
-    /* padding-right: 30%; */
+  /* padding-right: 30%; */
   text-align: center;
-  font-family: Georgia, 'Times New Roman', Times, serif;
+  font-family: Georgia, "Times New Roman", Times, serif;
   width: 70vw;
   color: var(--primary-color);
- 
-  
 }
-main{
-    display: flex;
-    flex-wrap: wrap;
+main {
+  display: flex;
+  flex-wrap: wrap;
+  margin-inline: 1rem;
 }
 .puzzle {
   display: flex;
@@ -36,85 +36,85 @@ main{
   flex-direction: column;
   justify-content: space-around;
   align-items: center;
-  min-height: 100vh;
+  /* min-height: 100vh; */
+  border-right: 2px solid var(--font-color);
 }
-.instructions{
-    width: 30%;
-   
-    margin-top: 10%;
-}
-
-.clues{
-    min-width: 60%;
-    min-height: 50vh;
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 3rem;
-    margin-inline: auto;
-    font-size: 1.5rem;
+.instructions {
+  width: 30%;
+  margin-top: 10%;
+  padding-left: 2rem;
 }
 
-.clue{
-    margin: auto;
+.clues {
+  min-width: 60%;
+  min-height: 50vh;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 3rem;
+  margin-inline: auto;
+  font-size: 1.5rem;
 }
 
-.clue p{
-    max-width: fit-content;
-    margin-inline: auto;
+.clue {
+  margin: auto;
 }
 
-.answer{
-    display: flex;
-    flex-direction: column;
-    min-height: 30vh;
-    margin: auto;
-   
+.clue p {
+  max-width: fit-content;
+  margin-inline: auto;
 }
 
-.ans-box{
-    font-size: 1.5rem;
-    text-align: center;
+.answer {
+  display: flex;
+  flex-direction: column;
+  min-height: 30vh;
+  margin: auto;
 }
 
-.answer-wrapper{
-    display: flex;
-    gap: 1rem;
+.ans-box {
+  font-size: 1.5rem;
+  text-align: center;
 }
 
-.answer-wrapper input{
-    width: 3rem;
-    aspect-ratio: 1;
-    border-radius: 0.5rem;
+.answer-wrapper {
+  display: flex;
+  gap: 1rem;
 }
 
-.button-wrapper{
-    padding-block: 1rem;
-    display: grid;
-    gap: 0.5rem;
-    grid-template-columns: repeat(3, 1fr);
-    margin-inline: auto;
+.answer-wrapper input {
+  width: 3rem;
+  aspect-ratio: 1;
+  border-radius: 0.5rem;
 }
 
-.button{
-    width: 2.5rem;
-    aspect-ratio: 1;
-    border-radius: 0.5rem;
-    font-size: 1.2rem;
+.button-wrapper {
+  padding-block: 1rem;
+  display: grid;
+  gap: 0.5rem;
+  grid-template-columns: repeat(3, 1fr);
+  margin-inline: auto;
 }
 
-.button-wrapper > button:nth-child(10){
-    grid-area: 4/2;
+.button {
+  width: 2.5rem;
+  aspect-ratio: 1;
+  border-radius: 0.5rem;
+  font-size: 1.2rem;
 }
 
-#submit{
-   width: 5rem;
-    padding: 0.5rem;
-    aspect-ratio: 5/1;
-    margin: auto;
+.button-wrapper > button:nth-child(10) {
+  grid-area: 4/2;
 }
 
-.placeholder{
-    background-color: var(--font-color);
-    font-size: 2em;
-    line-height: 1.14;
+#submit {
+  width: 5rem;
+  padding: 0.5rem;
+  aspect-ratio: unset;
+  margin: auto;
+}
+
+.placeholder {
+  background-color: var(--font-color);
+  font-size: 2em;
+  line-height: 1.14;
 }
