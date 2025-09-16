@@ -29,6 +29,7 @@ h1 {
 main{
     display: flex;
     flex-wrap: wrap;
+    margin-inline: 1rem;
 }
 .puzzle {
   display: flex;
@@ -76,6 +77,12 @@ main{
     text-align: center;
 }
 
+.ans-box:focus{
+    background-color: lightgreen;
+}
+
+
+
 .answer-wrapper{
     display: flex;
     gap: 1rem;
@@ -107,9 +114,10 @@ main{
 }
 
 #submit{
-   width: 5rem;
+   width: min-content;
+   height: fit-content;
     padding: 0.5rem;
-    aspect-ratio: 5/1;
+    aspect-ratio:unset;
     margin: auto;
 }
 

@@ -41,6 +41,7 @@ const existent = new Set();
 const nonExistent = new Set();
 
 let currentAnsBox = $("#ans1"); //to recieve user set value
+currentAnsBox.css("background", "lightgreen");
 
 let hasWon = new Array();
 const wrongVal = new Array();
@@ -293,7 +294,6 @@ function checkAnswer(answer) {
 }
 
 $().ready(() => {
-  
   //set clues
   twoClue();
   wpClue();
@@ -317,6 +317,17 @@ $().ready(() => {
   // set currentAnsBox if user clicks on an input box
   $(".ans-box").on("click", function (e) {
     currentAnsBox = $(this);
+    currentAnsBox.css("background", "lightgreen");
+    for (const element of $(".ans-box")) {
+      {
+        if (element === currentAnsBox) {
+          currentAnsBox.css("background", "lightgreen");
+        } else {
+          $("#ans3").css("background", "white");
+        }
+      }
+    }
+
     e.preventDefault();
   });
 
@@ -324,9 +335,21 @@ $().ready(() => {
   $(".number-btn").click((e) => {
     if (currentAnsBox.length == 0) {
       currentAnsBox = $("#ans1");
+      currentAnsBox.css("background", "lightgreen");
     }
     currentAnsBox.val(e.currentTarget.value);
-    currentAnsBox = currentAnsBox.next();
+    currentAnsBox.css("background", "white");
+
+    console.log(currentAnsBox[0].id === "ans3");
+
+    if (currentAnsBox[0].id === "ans3") {
+      console.log(`here`);
+      currentAnsBox = $("#ans1");
+      currentAnsBox.css("background", "lightgreen");
+    } else {
+      currentAnsBox = currentAnsBox.next();
+      currentAnsBox.css("background", "lightgreen");
+    }
     e.preventDefault();
   });
 
@@ -345,7 +368,7 @@ $().ready(() => {
     } else {
       checkAnswer(answer);
     }
-  
+
     e.preventDefault();
   });
 });
