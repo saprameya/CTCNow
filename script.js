@@ -31,8 +31,6 @@ let wpIndex = indexes[0];
 let notWpIndex1 = indexes[1];
 let notWpIndex2 = indexes[2];
 
-console.log(wpIndex, notWpIndex1, notWpIndex2); // each will be 0, 1, 2 in random order/////////////////////////////////////////
-
 //declare named clue numbers
 let wpNum = -1;
 let notWpNum1 = -1;
@@ -203,7 +201,6 @@ function checkWP(answer) {
 
     probString += `\n-Answer must contain exactly one number from this clue`;
   }
-  console.log(correctCount);
   if (wpProblems.includes(false)) wpProblems[1] = heading + probString;
   return wpProblems;
 }
@@ -289,15 +286,6 @@ function checkAnswer(answer) {
       : true;
   problem +=
     noneCorrChecked[1] + wpChecked[1] + twoCorrChecked[1] + oneCorrChecked[1];
-  console.log(hasWon);
-  console.log(problem);
-  // hasWon = checkWP(answer)[0];
-  // problem += checkWP(answer)[1];
-
-  // hasWon = checkTwoCorrect(answer)[0];
-  // problem += checkTwoCorrect(answer)[1];
-
-  // hasWon = checkOneCorrect(answer)[0];
 
   hasWon
     ? alert("You win!")
@@ -314,7 +302,6 @@ $().ready(() => {
   //shuffle order of clues
   const clueArray = Array.from($(".clue"));
   shuffleArray(clueArray);
-  console.log(clueArray);
 
   $(".clues").text("");
   for (const element of clueArray) {
@@ -325,18 +312,6 @@ $().ready(() => {
   $("#clue2").text(wellPlaced.join(""));
   $("#clue3").text(oneCorrect.join(""));
   $("#clue4").text(noCorrect.join(""));
-
-  /////////////////////////////////////////////////////////////////////////////////
-  console.log(`wellPlaced: ${wellPlaced}`);
-  console.log(`twoCorrect: ${twoCorrect}`);
-  console.log(`oneCorrect: ${oneCorrect}`);
-  console.log(`noCorrect: ${noCorrect}`);
-  console.log(`wpNum: ${wpNum}`);
-  console.log(`notWpNum1: ${notWpNum1}`);
-  console.log(`notWpNum2: ${notWpNum2}`);
-  console.log(`existent: ${Array.from(existent)}`);
-  console.log(`nonExistent: ${Array.from(nonExistent)}`);
-  /////////////////////////////////////////////////////////////////////////////
 
   // set currentAnsBox if user clicks on an input box
   $(".ans-box").on("click", function (e) {
@@ -368,7 +343,7 @@ $().ready(() => {
       alert("Please fill all 3 boxes");
     } else {
       checkAnswer(answer);
-    } ///////////////////////////////////////////////////////////////
+    }
     e.preventDefault();
   });
 });
