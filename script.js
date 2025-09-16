@@ -293,6 +293,7 @@ function checkAnswer(answer) {
 }
 
 $().ready(() => {
+  
   //set clues
   twoClue();
   wpClue();
@@ -344,6 +345,7 @@ $().ready(() => {
     } else {
       checkAnswer(answer);
     }
+  
     e.preventDefault();
   });
 });
