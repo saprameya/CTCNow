@@ -288,13 +288,29 @@ function checkAnswer(answer) {
     noneCorrChecked[1] + wpChecked[1] + twoCorrChecked[1] + oneCorrChecked[1];
 
   hasWon
-    ? alert("You win!")
-    : alert(`You lose!\nYour answer: ${answer.join("")} \n ${problem}`);
+    ? showAlert("You win!")
+    : showAlert(`You lose!\nYour answer: ${answer.join("")} \n ${problem}`);
 }
 
 $().ready(() => {
+  $("#dialog").dialog({
+    autoOpen: false,
+    show: {
+      effect: "blind",
+      duration: 1000,
+    },
+    hide: {
+      effect: "blind",
+      duration: 1000,
+    },
+    position:{
+      at: "center center",
+      of: parent    }
 
-   
+  });
+  const left = 0.3;
+  $("#dialog").css({'left': 0, 'top': 0.5}, )
+
   //set clues
   twoClue();
   wpClue();
@@ -340,13 +356,18 @@ $().ready(() => {
 
     const answerSet = Array.from(new Set(answer));
     if (answerSet.length !== answer.length) {
-      alert("Duplicate numbers not allowed");
+      showAlert("Duplicate numbers not allowed");
     } else if (answerSet.includes("")) {
-      alert("Please fill all 3 boxes");
+      showAlert("Please fill all 3 boxes");
     } else {
       checkAnswer(answer);
     }
-  
     e.preventDefault();
   });
 });
+
+function showAlert(message){
+    $("#dialog").dialog("open");
+    $("#message").text(message);
+
+}

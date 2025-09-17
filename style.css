@@ -4,13 +4,17 @@
   padding: 0;
 }
 
-body {
-  font-family: Verdana, Geneva, Tahoma, sans-serif;
+:root{
+font-family: Verdana, Geneva, Tahoma, sans-serif;
   --primary-color: rgb(145, 57, 145);
   --font-color: rgba(255, 255, 0);
 
   background-color: var(--primary-color);
   color: var(--font-color);
+}
+
+body {
+  
 }
 
 header {
@@ -117,4 +121,25 @@ main {
   background-color: var(--font-color);
   font-size: 2em;
   line-height: 1.14;
+}
+
+#dialog{
+  background-color: var(--font-color);
+  color: var(--primary-color);
+}
+
+
+element {
+	height: auto;
+	width: 300px;
+	top: 276.633px;
+	left: 329.5px;
+}
+
+.ui-widget.ui-widget-content {
+  background-color: var(--font-color);
+	position: relative;
+
+  top: 0;
+  left: 0;
 }
