@@ -293,22 +293,6 @@ function checkAnswer(answer) {
 }
 
 $().ready(() => {
-  $("#dialog").dialog({
-    autoOpen: false,
-    show: {
-      effect: "blind",
-      duration: 1000,
-    },
-    hide: {
-      effect: "blind",
-      duration: 1000,
-    },
-    
-
-  });
-  const left = 0.3;
-  $("#dialog").css({'left': 0, 'top': 0.5}, )
-
   //set clues
   twoClue();
   wpClue();
@@ -353,10 +337,10 @@ $().ready(() => {
     });
 
     const answerSet = Array.from(new Set(answer));
-    if (answerSet.length !== answer.length) {
-      showAlert("Duplicate numbers not allowed");
-    } else if (answerSet.includes("")) {
+    if (answerSet.includes(NaN)) {
       showAlert("Please fill all 3 boxes");
+    } else if (answerSet.length !== answer.length) {
+      showAlert("Duplicate numbers not allowed");
     } else {
       checkAnswer(answer);
     }
@@ -364,8 +348,29 @@ $().ready(() => {
   });
 });
 
-function showAlert(message){
-    $("#dialog").dialog("open");
-    $("#message").text(message);
+function showAlert(message) {
+  $("#dialog").dialog({
+    autoOpen: false,
+    show: {
+      effect: "blind",
+      duration: 1000,
+    },
+    hide: {
+      effect: "blind",
+      duration: 1000,
+    },
+    position: {
+      my: "center",
+      at: "center",
+      of: $(".puzzle"),
+    },
+    modal: true,
+    width: 400,
+  });
+  $("#dialog").dialog("open");
+  $("#message").text(message);
+}
 
+function clear() {
+  $("#ans1").val("");
 }
