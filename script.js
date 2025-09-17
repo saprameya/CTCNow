@@ -303,9 +303,7 @@ $().ready(() => {
       effect: "blind",
       duration: 1000,
     },
-    position:{
-      at: "center center",
-      of: parent    }
+    
 
   });
   const left = 0.3;
