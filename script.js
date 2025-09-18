@@ -365,8 +365,10 @@ function showAlert(message) {
       of: $(".puzzle"),
     },
     modal: true,
-    width: 400,
+    width: 300,
   });
+  
+  
   $("#dialog").dialog("open");
   $("#message").text(message);
 }
