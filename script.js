@@ -360,8 +360,8 @@ function showAlert(message) {
       duration: 1000,
     },
     position: {
-      my: "center",
-      at: "center",
+      my: "center ",
+      at: "center ",
       of: $(".puzzle"),
     },
     modal: true,
