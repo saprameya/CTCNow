@@ -121,6 +121,10 @@ main {
 .button-wrapper > button:nth-child(10) {
   grid-area: 4/2;
 }
+.submit-btn-wrapper{
+  width: fit-content;
+  margin-inline: auto;
+}
 
 #submit,
 #clear {
