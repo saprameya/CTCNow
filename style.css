@@ -122,8 +122,8 @@ main {
   grid-area: 4/2;
 }
 .submit-btn-wrapper{
-  width: fit-content;
-  margin-inline: auto;
+  width: 100%;
+  
 }
 
 #submit,
@@ -185,6 +185,15 @@ main {
   }
 
   .instructions > * {
+    width: fit-content;
+    margin-inline: auto;
+  }
+  .submit-btn-wrapper{
+    display: flex;
+    flex-direction: column;
+  }
+
+  #submit, #clear{
     width: fit-content;
     margin-inline: auto;
   }
